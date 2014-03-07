@@ -46,7 +46,7 @@ var carrrgo = function(opts) {
 		return template;
 	};
 	
-	var	ext = function(o1, o2) {
+	var ext = function(o1, o2) {
 		for(var key in o2){
 			if(key in o1){
 				if(o1[key] && o1[key].constructor == Object){
@@ -58,19 +58,19 @@ var carrrgo = function(opts) {
 		}
 	};
 		
-	var	ago = function(time) {
+	var ago = function(time) {
 		var date = new Date((time || ""));
-		var	diff = (((new Date()).getTime() - date.getTime()) / 1000);
-		var	day_diff = Math.floor(diff / 86400);
+		var diff = (((new Date()).getTime() - date.getTime()) / 1000);
+		var day_diff = Math.floor(diff / 86400);
 		if (isNaN(day_diff) || day_diff < 0)
 			return;
 		return day_diff == 0 && (diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff/60) + " minutes ago" || diff < 7200 && "1 hour ago" ||diff < 86400 && Math.floor(diff/3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff/7) + " week" + (Math.ceil(day_diff/7) > 1? 's' : '') + " ago" || day_diff < 365 && Math.ceil(day_diff/30) + " months ago" || day_diff >= 365 && Math.ceil(day_diff/365) + " year" + (Math.ceil(day_diff/365)>1?"s":"") + " ago";
 	};
 		
-	var	cache = function(key, json) {
+	var cache = function(key, json) {
 		if((typeof localStorage !== undefined) && (typeof JSON !== undefined)){
 			var now = new Date().getTime();
-			var	cachedData = null;
+			var cachedData = null;
 			if(json == undefined){
 				try{
 					cachedData = JSON.parse(unescape(localStorage.getItem(key)));
@@ -99,11 +99,11 @@ var carrrgo = function(opts) {
 	var	get = function() {
 		carrrgo.requests = (carrrgo.requests == undefined? 1:carrrgo.requests+1);
 		var get = document.createElement('script');
-		var	callkey = 'callback' + carrrgo.requests;
-		var	kids = document.body.children;
-		var	script = document.scripts[document.scripts.length-1];
-		var	url = render(options.endpoint);
-		var	scriptInBody = script.parentNode.nodeName != 'head';
+		var callkey = 'callback' + carrrgo.requests;
+		var kids = document.body.children;
+		var script = document.scripts[document.scripts.length-1];
+		var url = render(options.endpoint);
+		var scriptInBody = script.parentNode.nodeName != 'head';
 		carrrgo[callkey] = function(json,cached) {
 			json = json.results? json.results : json;			
 			if(cached !== true){
@@ -173,37 +173,37 @@ var carrrgo = function(opts) {
    		}
    		var delims = delims || ['{{','}}'];
    		var scopeMatch = new RegExp(delims[0] + '[^' + delims[1] + ']*' + delims[1], 'igm');
-        var matches = tpl.match(scopeMatch);
-        if (!matches)
-        	return tpl;
-       	for(var i=0, matchCount = matches.length, m; m = matches[i], i < matchCount; i++){
-            tagMatch = new RegExp(delims[0] + '|' + delims[1],'ig'),
-            scopeName = m.replace(tagMatch,'');
-		   	if(scopeName[0] == '#'){
-		   		name = scopeName.slice(1,scopeName.length);
-		   		startFrag = tpl.indexOf( m );
-		   		endFrag = tpl.indexOf( m.replace('#', '/') ) + m.length;
-		   		frag = tpl.substring( startFrag + m.length , endFrag - m.length );
-		   		dataFrag = dotData( data, name );
-		   		rendered = '';
-		   		if(dataFrag){
-			   		if(dataFrag.constructor == Array){
-			   			for(var i = 0, max = dataFrag.length; i < max; i++){
-			   				rendered += render(frag, dataFrag[i]);
-			   			}
-			   		} else {
-			   			rendered = render(frag, dataFrag, delims);
-			   		}
-			   		startFrag = tpl.indexOf(m);
-		   			endFrag = tpl.indexOf(m.replace('#', '/')) + m.length;
-			   		tpl = tpl.slice(0,startFrag) + rendered + tpl.slice(endFrag,tpl.length);
+		var matches = tpl.match(scopeMatch);
+		if (!matches)
+			return tpl;
+		for(var i=0, matchCount = matches.length, m; m = matches[i], i < matchCount; i++){
+			tagMatch = new RegExp(delims[0] + '|' + delims[1],'ig'),
+			scopeName = m.replace(tagMatch,'');
+			if(scopeName[0] == '#'){
+				name = scopeName.slice(1,scopeName.length);
+				startFrag = tpl.indexOf( m );
+				endFrag = tpl.indexOf( m.replace('#', '/') ) + m.length;
+				frag = tpl.substring( startFrag + m.length , endFrag - m.length );
+				dataFrag = dotData( data, name );
+				rendered = '';
+				if(dataFrag){
+		   		if(dataFrag.constructor == Array){
+		   			for(var i = 0, max = dataFrag.length; i < max; i++){
+		   				rendered += render(frag, dataFrag[i]);
+		   			}
+		   		} else {
+		   			rendered = render(frag, dataFrag, delims);
 		   		}
-		   	} else {
-		   		val = dotData(data,scopeName) || '';
-		   		tpl = tpl.replace( m, val );
-		   	}
+		   		startFrag = tpl.indexOf(m);
+					endFrag = tpl.indexOf(m.replace('#', '/')) + m.length;
+		   		tpl = tpl.slice(0,startFrag) + rendered + tpl.slice(endFrag,tpl.length);
+				}
+			} else {
+				val = dotData(data,scopeName) || '';
+				tpl = tpl.replace( m, val );
+			}
 		}
-	   return tpl;
+		return tpl;
 	}
 
 	for(var o in options){
