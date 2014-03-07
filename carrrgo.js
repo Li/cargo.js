@@ -104,16 +104,16 @@ var carrrgo = function(opts) {
 		var script = document.scripts[document.scripts.length-1];
 		var url = render(options.endpoint);
 		var scriptInBody = script.parentNode.nodeName != 'head';
-		carrrgo[callkey] = function(json,cached) {
+		carrrgo[callkey] = function(json, cached) {
 			json = json.results? json.results : json;			
 			if(cached !== true){
-				cache(url,json);
+				cache(url, json);
 			}
 			var vessel = document.createElement('div');
-			options.beforeRender.call(this,json);
+			options.beforeRender.call(this, json);
 			vessel.innerHTML = render(getTemplate(), json, options.templateDelimiters);
 			if(options.target == null){
-				script.parentNode.insertBefore(vessel,script);
+				script.parentNode.insertBefore(vessel, script);
 				options.target = vessel;
 			} else {
 				if(options.target.nodeName){
@@ -122,12 +122,12 @@ var carrrgo = function(opts) {
 					document.getElementById(options.target).innerHTML = vessel.innerHTML;
 				}
 			}
-			options.afterRender.call(this,options.target);
-			options.success.call(this,json);
+			options.afterRender.call(this, options.target);
+			options.success.call(this, json);
 		}
 		get.onerror = options.error;
 		if(cachedData = cache(url)){
-			carrrgo[callkey](cachedData,true);
+			carrrgo[callkey](cachedData, true);
 		} else {
 			get.src = url + (url.indexOf('?') > -1? '&': '?') + options.callbackParam + '=carrrgo.' + callkey;
 			document.getElementsByTagName('head')[0].appendChild(get);
@@ -144,7 +144,7 @@ var carrrgo = function(opts) {
 
 	function render(tpl, data, delims) {
 		tpl = unescape(tpl);
-		function dotData(d,dotKey){
+		function dotData(d, dotKey){
    	   		var invert = '';
    	   		var filters = dotKey.split('|');
    	   		var name = filters.shift();
@@ -180,7 +180,7 @@ var carrrgo = function(opts) {
 			tagMatch = new RegExp(delims[0] + '|' + delims[1],'ig'),
 			scopeName = m.replace(tagMatch,'');
 			if(scopeName[0] == '#'){
-				name = scopeName.slice(1,scopeName.length);
+				name = scopeName.slice(1, scopeName.length);
 				startFrag = tpl.indexOf(m);
 				endFrag = tpl.indexOf(m.replace('#', '/')) + m.length;
 				frag = tpl.substring(startFrag + m.length , endFrag - m.length);
@@ -199,7 +199,7 @@ var carrrgo = function(opts) {
 		   		tpl = tpl.slice(0,startFrag) + rendered + tpl.slice(endFrag,tpl.length);
 				}
 			} else {
-				val = dotData(data,scopeName) || '';
+				val = dotData(data, scopeName) || '';
 				tpl = tpl.replace(m, val);
 			}
 		}
