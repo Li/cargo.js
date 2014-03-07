@@ -50,7 +50,7 @@ var carrrgo = function(opts) {
 		for(var key in o2){
 			if(key in o1){
 				if(o1[key] && o1[key].constructor == Object){
-					ext( o1[key], o2[key] );
+					ext(o1[key], o2[key]);
 				} else {
 					o1[key] = o2[key];
 				}
@@ -137,7 +137,7 @@ var carrrgo = function(opts) {
 	var init = function(opts){
 		if(opts && opts != undefined){
 			if (opts.constructor == Object) {
-				ext(options,opts);
+				ext(options, opts);
 			}
 		}
 	};
