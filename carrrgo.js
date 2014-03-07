@@ -147,8 +147,8 @@ var carrrgo = function(opts) {
 		function dotData(d,dotKey){
    	   		var invert = '';
    	   		var filters = dotKey.split('|');
-   	   		var	name 	= filters.shift();
-   	   		if( name.indexOf("!") > -1 ){
+   	   		var name = filters.shift();
+   	   		if(name.indexOf("!") > -1){
    	   			name = name.replace(/!/ig,'');
    	   			invert = '!';
    	   		}
@@ -157,8 +157,8 @@ var carrrgo = function(opts) {
    	   			if(filters){
    	   				for(var i =0, max = filters.length; i < max; i++){
    	   					var chunks = filters[i].split(':');
-   	   					var	filter = chunks.shift();
-   	   					var	params = chunks;
+   	   					var filter = chunks.shift();
+   	   					var params = chunks;
    	   					f = eval(filter);
 	   	   				if(typeof f == 'function'){
 	   	   					newval = f.apply(d,[val].concat(params) );
@@ -181,10 +181,10 @@ var carrrgo = function(opts) {
 			scopeName = m.replace(tagMatch,'');
 			if(scopeName[0] == '#'){
 				name = scopeName.slice(1,scopeName.length);
-				startFrag = tpl.indexOf( m );
-				endFrag = tpl.indexOf( m.replace('#', '/') ) + m.length;
-				frag = tpl.substring( startFrag + m.length , endFrag - m.length );
-				dataFrag = dotData( data, name );
+				startFrag = tpl.indexOf(m);
+				endFrag = tpl.indexOf(m.replace('#', '/')) + m.length;
+				frag = tpl.substring(startFrag + m.length , endFrag - m.length);
+				dataFrag = dotData(data, name);
 				rendered = '';
 				if(dataFrag){
 		   		if(dataFrag.constructor == Array){
@@ -200,7 +200,7 @@ var carrrgo = function(opts) {
 				}
 			} else {
 				val = dotData(data,scopeName) || '';
-				tpl = tpl.replace( m, val );
+				tpl = tpl.replace(m, val);
 			}
 		}
 		return tpl;
