@@ -1,6 +1,6 @@
 /*
 
-@name     Carrrgo.js
+@name     Cargo.js
 @desc     A Tiny Script to Pull JSONP Data
 @author   Li Li
 @version  1.0
@@ -8,10 +8,10 @@
 
 */
 
-var carrrgo = function(opts) {
-	if(this.constructor != carrrgo) {
-		carrrgo.instance = new carrrgo(opts).show();
-		return carrrgo.instance;
+var cargo = function(opts) {
+	if(this.constructor != cargo) {
+		cargo.instance = new cargo(opts).show();
+		return cargo.instance;
 	}
 	
 	var options = {
@@ -97,14 +97,14 @@ var carrrgo = function(opts) {
 	};
 		
 	var	get = function() {
-		carrrgo.requests = (carrrgo.requests == undefined? 1:carrrgo.requests+1);
+		cargo.requests = (cargo.requests == undefined? 1:cargo.requests+1);
 		var get = document.createElement('script');
-		var callkey = 'callback' + carrrgo.requests;
+		var callkey = 'callback' + cargo.requests;
 		var kids = document.body.children;
 		var script = document.scripts[document.scripts.length-1];
 		var url = render(options.endpoint);
 		var scriptInBody = script.parentNode.nodeName != 'head';
-		carrrgo[callkey] = function(json, cached) {
+		cargo[callkey] = function(json, cached) {
 			json = json.results? json.results : json;			
 			if(cached !== true){
 				cache(url, json);
@@ -127,9 +127,9 @@ var carrrgo = function(opts) {
 		}
 		get.onerror = options.error;
 		if(cachedData = cache(url)){
-			carrrgo[callkey](cachedData, true);
+			cargo[callkey](cachedData, true);
 		} else {
-			get.src = url + (url.indexOf('?') > -1? '&': '?') + options.callbackParam + '=carrrgo.' + callkey;
+			get.src = url + (url.indexOf('?') > -1? '&': '?') + options.callbackParam + '=cargo.' + callkey;
 			document.getElementsByTagName('head')[0].appendChild(get);
 		}
 	};
@@ -224,12 +224,12 @@ var carrrgo = function(opts) {
 		return this;
 	},
 
-	carrrgo.render = render;
-	carrrgo.extend = ext;
-	carrrgo.cache = cache;
-	carrrgo.ago = ago;
+	cargo.render = render;
+	cargo.extend = ext;
+	cargo.cache = cache;
+	cargo.ago = ago;
 
 	init(opts);
 };
 
-carrrgo._script = document.scripts[document.scripts.length-1];
+cargo._script = document.scripts[document.scripts.length-1];
