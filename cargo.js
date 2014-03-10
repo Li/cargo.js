@@ -1,6 +1,6 @@
 /*
 
-@name     Carrrgo.js
+@name     Cargo.js
 @desc     A Tiny Script to Pull JSONP Data
 @author   Li Li
 @version  1.0
