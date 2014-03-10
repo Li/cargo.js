@@ -232,8 +232,4 @@ var cargo = function(opts) {
 	init(opts);
 };
 
-<<<<<<< HEAD:cargo.js
 cargo._script = document.scripts[document.scripts.length-1];
-=======
-carrrgo._script = document.scripts[document.scripts.length-1];
->>>>>>> FETCH_HEAD:cargo.js
