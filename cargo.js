@@ -8,6 +8,8 @@
 
 */
 
+/* 新增添的一行用于新手测试 */
+
 var cargo = function(opts) {
 	if(this.constructor != cargo) {
 		cargo.instance = new cargo(opts).show();
